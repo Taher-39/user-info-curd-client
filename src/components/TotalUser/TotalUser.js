@@ -6,6 +6,7 @@ const TotalUser = () => {
     const [user, setUser] = useState([])
     const [singleUser, setSingleUser] = useState({})
     const [updateUserValue, setUpdateUserValue] = useState({})
+    const [updateClick, setUpdateClick] = useState(false)
 
     useEffect(() => {
         fetch("https://agile-sands-57980.herokuapp.com/getTotalUser")
@@ -18,11 +19,13 @@ const TotalUser = () => {
 
     
     const handleLoadUser = (id) => {
+        
         fetch(`https://agile-sands-57980.herokuapp.com/getSingleUser/${id}`)
             .then(res => res.json())
             .then(data => {
                 setSingleUser(data)
             })
+        setUpdateClick(true)
     }
     const handleBlur = (e) => {
         const newUserValue = { ...updateUserValue };
@@ -39,6 +42,7 @@ const TotalUser = () => {
         }).then(res => res.json())
         .then(data => alert('User Updated Successfully.'))
         e.preventDefault()
+        setUpdateClick(false)
     }
     const handleDeleteUser = (id) => {
         fetch(`https://agile-sands-57980.herokuapp.com/deleteUser/${id}`, {
@@ -53,22 +57,48 @@ const TotalUser = () => {
     return (
         <div>
             <div>
-                {user.length ?
-                    user.map(data => <p key={data._id}>
-                        <b>Name: </b>{data.name}  <b>Email: </b>{data.email}
-                        <button className='btn btn-success mx-2' onClick={() => handleLoadUser(data._id)}>Update</button>
-                        <button className='btn btn-danger' onClick={(e) => handleDeleteUser(data._id)}>Delete</button>
-                    </p>)
-                    : <h3 className='text-center pt-5'>Loading</h3>
-                }
+                <table className='table table-borderless'>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Manage</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        {
+                            user.length ?
+                                user.map((data, index) =>
+                                    <tr>
+                                        <td>{index + 1}</td>
+                                        <td>{data.name}</td>
+                                        <td>{data.email}</td>
+                                        <td>
+                                            
+                                                <button className='btn btn-success mx-2' onClick={() => handleLoadUser(data._id)}>Update</button>
+                                                <button className='btn btn-danger' onClick={() => handleDeleteUser(data._id)}>Delete</button>
+                                            
+                                        </td>
+                                    </tr>
+                                )
+                            : <h3 className='text-center pt-5'>Loading</h3>
+                        }
+                    </tbody>
+                </table> 
             </div>
             <div className='pt-3'>
-                <h5>Update: {singleUser._id}</h5>
-                <form onSubmit={handleUpdateSubmit}>
-                    <input className='form-control mb-2' type='text' defaultValue={singleUser.name} name='name'  onBlur={handleBlur} />
-                    <input className='form-control ' type='text' defaultValue={singleUser.email} name='email'  onBlur={handleBlur} />
-                    <button type="submit" className='btn btn-success mt-2'>Submit</button>
-                </form>
+                {
+                    updateClick === true &&
+                        <div>
+                            <h5>Employee Id: {singleUser._id}</h5>
+                            <form onSubmit={handleUpdateSubmit}>
+                                <input className='form-control mb-2' type='text' defaultValue={singleUser.name} name='name' onBlur={handleBlur} />
+                                <input className='form-control ' type='text' defaultValue={singleUser.email} name='email' onBlur={handleBlur} />
+                                <button type="submit" className='btn btn-success mt-2'>Submit</button>
+                            </form>
+                        </div>
+                }
             </div>
         </div>
     );
