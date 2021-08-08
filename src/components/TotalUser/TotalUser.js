@@ -65,9 +65,9 @@ const TotalUser = () => {
             <div className='pt-3'>
                 <h5>Update: {singleUser._id}</h5>
                 <form onSubmit={handleUpdateSubmit}>
-                    <input type='text' defaultValue={singleUser.name} name='name'  onBlur={handleBlur} />
-                    <input type='text' defaultValue={singleUser.email} name='email'  onBlur={handleBlur} />
-                    <button type="submit">Submit</button>
+                    <input className='form-control mb-2' type='text' defaultValue={singleUser.name} name='name'  onBlur={handleBlur} />
+                    <input className='form-control ' type='text' defaultValue={singleUser.email} name='email'  onBlur={handleBlur} />
+                    <button type="submit" className='btn btn-success mt-2'>Submit</button>
                 </form>
             </div>
         </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import UserTable from '../UserTable/UserTable';
 import { useForm } from "react-hook-form";
 import './Home.css'
 import TotalUser from '../TotalUser/TotalUser';
@@ -24,9 +23,10 @@ const Home = () => {
                 alert("User Added Successfully.")
             })
     };
+    
     return (
         <div className='bg'> 
-            <h1 className='text-center pt-3'>There is New User Information Area</h1>
+            <h1 className='text-center pt-3'>IT Train Employee List</h1>
             
             <div className="container mt-5">
                 <div className="row">
@@ -42,7 +42,7 @@ const Home = () => {
                             {errors.website && <span className='text-danger'>This field is required</span>}
                             <br />
 
-                            <input type="submit" />
+                            <input type="submit" className='btn btn-success' />
                         </form>
                     </div>
                     <div className="col-md-6">
