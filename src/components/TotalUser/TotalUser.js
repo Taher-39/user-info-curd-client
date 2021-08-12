@@ -27,11 +27,13 @@ const TotalUser = () => {
             })
         setUpdateClick(true)
     }
+
     const handleBlur = (e) => {
         const newUserValue = { ...updateUserValue };
         newUserValue[e.target.name] = e.target.value; 
         setUpdateUserValue(newUserValue)
     }
+
     const handleUpdateSubmit = (e) => {
         fetch(`https://agile-sands-57980.herokuapp.com/updateUserInfo/${singleUser._id}`,{
             method: 'PATCH',
@@ -44,6 +46,7 @@ const TotalUser = () => {
         e.preventDefault()
         setUpdateClick(false)
     }
+    
     const handleDeleteUser = (id) => {
         fetch(`https://agile-sands-57980.herokuapp.com/deleteUser/${id}`, {
              method: "DELETE"   
