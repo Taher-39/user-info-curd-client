@@ -48,17 +48,19 @@ const TotalUser = () => {
     }
     
     const handleDeleteUser = (id) => {
-        fetch(`https://agile-sands-57980.herokuapp.com/deleteUser/${id}`, {
+        if(window.confirm("Are You Confirm For Delete..?")){
+            fetch(`https://agile-sands-57980.herokuapp.com/deleteUser/${id}`, {
              method: "DELETE"   
-        }).then(res => res.json())
-        .then(result => {
-            if(result){
-                console.log("Deleted Successfully")
-            }
-        })
+            }).then(res => res.json())
+            .then(result => {
+                if(result){
+                    console.log("Deleted Successfully")
+                }
+            })
 
-        const newEmployee = user.filter(employee => employee._id !== id)
-        setUser(newEmployee)
+            const newEmployee = user.filter(employee => employee._id !== id)
+            setUser(newEmployee)
+            }
     }
     return (
         <div>
