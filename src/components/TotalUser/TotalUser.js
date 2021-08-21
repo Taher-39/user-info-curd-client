@@ -15,7 +15,7 @@ const TotalUser = () => {
                 setUser(data)
             })
 
-    }, [])
+    }, [user])
 
     
     const handleLoadUser = (id) => {
@@ -42,7 +42,7 @@ const TotalUser = () => {
             },
             body: JSON.stringify(updateUserValue)
         }).then(res => res.json())
-        .then(data => alert('User Updated Successfully.'))
+        .then(data => console.log('User Updated Successfully.'))
         e.preventDefault()
         setUpdateClick(false)
     }
@@ -53,9 +53,12 @@ const TotalUser = () => {
         }).then(res => res.json())
         .then(result => {
             if(result){
-                alert("Deleted Successfully")
+                console.log("Deleted Successfully")
             }
         })
+
+        const newEmployee = user.filter(employee => employee._id !== id)
+        setUser(newEmployee)
     }
     return (
         <div>

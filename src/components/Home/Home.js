@@ -20,7 +20,7 @@ const Home = () => {
             },
             body: JSON.stringify(userData)
         }).then(res => {
-                alert("User Added Successfully.")
+                console.log("User Added Successfully.")
             })
     };
     
